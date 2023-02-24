@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import Kingfisher
 
 class PostsCollectionViewCell: UICollectionViewCell {
     
@@ -23,6 +24,8 @@ class PostsCollectionViewCell: UICollectionViewCell {
     
     private lazy var postImage: UIImageView = {
         let view = UIImageView()
+        view.layer.cornerRadius = 20
+        view.clipsToBounds = true
         return view
     }()
     
@@ -41,20 +44,39 @@ class PostsCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var moreButton: Button = {
-        let view = Button()
-        view.setup(text: "Подробнее")
+    private lazy var moreButton: UIButton = {
+        let view = UIButton()
+        view.setTitleColor(.white, for: .normal)
+        view.titleLabel?.font = UIFont(name: "Inter-Medium", size: 18)
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor(hexString: "#DB66E4").cgColor
+        view.layer.borderWidth = 1
+        view.setTitle("Подробнее", for: .normal)
+        view.setTitleColor(UIColor(hexString: "#DB66E4"), for: .normal)
         return view
     }()
     
-    private lazy var applyButton: Button = {
-        let view = Button()
-        view.setup(text: "Подать заявку")
+    private lazy var applyButton: UIButton = {
+        let view = UIButton()
+        view.setTitleColor(.white, for: .normal)
+        view.titleLabel?.font = UIFont(name: "Inter-Medium", size: 18)
+        view.backgroundColor = UIColor(hexString: "#DB66E4")
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor(hexString: "#DB66E4").cgColor
+        view.layer.borderWidth = 1
+        view.setTitle("Подать заявку", for: .normal)
         return view
     }()
     
-    override init(frame: CGRect) {
+    override init(frame: CGRect){
         super.init(frame: frame)
+        backgroundColor = .white
+        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
+        layer.shadowOpacity = 1
+        layer.shadowRadius = 4
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.cornerRadius = 20
         setupViews()
         constraints()
     }
@@ -65,15 +87,14 @@ class PostsCollectionViewCell: UICollectionViewCell {
     
     func setupViews(){
         addSubview(postImage)
-        addSubview(postTitle)
-        addSubview(postSubTitle)
+        addSubview(titleStack)
         contentView.addSubview(moreButton)
         contentView.addSubview(applyButton)
     }
     
     func constraints(){
         postImage.snp.makeConstraints { make in
-            make.width.equalTo(self.frame.width)
+            make.width.equalToSuperview()
             make.height.equalTo(self.frame.height / 2 - 2)
             make.top.equalTo(self.snp.top)
         }
@@ -82,23 +103,43 @@ class PostsCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(postImage.snp.bottom).offset(10)
             make.width.equalTo(self.frame.width - 32)
             make.centerX.equalToSuperview()
-            make.height.equalTo(36 + 5 + 24)
+            make.height.equalTo(65)
         }
         
-        moreButton.snp.makeConstraints { make in
-            make.top.equalTo(titleStack.snp.bottom).offset(10)
-            make.width.equalTo((self.frame.width - 24) / 2 - 8)
-            make.height.equalTo(50)
-            make.leading.equalToSuperview().offset(12)
-        }
+    }
+    
+    func fill(model: PostsViewCellModel){
+        postImage.kf.setImage(with: URL(string: model.postImage))
+        postTitle.text = model.postTitle
+        postSubTitle.text = model.postSubTItle
         
-        applyButton.snp.makeConstraints { make in
-            make.top.equalTo(titleStack.snp.bottom).offset(10)
-            make.width.equalTo((self.frame.width - 24) / 2 - 8)
-            make.height.equalTo(50)
-            make.trailing.equalToSuperview().offset(-12)
+        switch model.postType {
+        case .regular:
+            moreButton.snp.makeConstraints { make in
+                make.top.equalTo(titleStack.snp.bottom).offset(10)
+                make.width.equalTo(self.frame.width - 32)
+                make.height.equalTo(50)
+                make.centerX.equalToSuperview()
+            }
+            applyButton.isHidden = true
+            moreButton.setTitle("Посмотреть", for: .normal)
+            moreButton.setTitleColor(.white, for: .normal)
+            moreButton.backgroundColor = UIColor(hexString: "#DB66E4")
+        case .event:
+            moreButton.snp.makeConstraints { make in
+                make.top.equalTo(titleStack.snp.bottom).offset(10)
+                make.width.equalTo(self.frame.width / 2 - 16 - 5)
+                make.height.equalTo(50)
+                make.leading.equalTo(self.snp.leading).offset(12)
+            }
+            
+            applyButton.snp.makeConstraints { make in
+                make.top.equalTo(titleStack.snp.bottom).offset(10)
+                make.width.equalTo(self.frame.width / 2 - 16 - 5)
+                make.height.equalTo(50)
+                make.trailing.equalTo(self.snp.trailing).offset(-12)
+            }
         }
-        
     }
     
 }

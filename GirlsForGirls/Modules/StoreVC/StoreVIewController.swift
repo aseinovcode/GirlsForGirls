@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import UIKit
+
+class StoreVIewController: BaseViewController {
+    
+    
+    override func setupViews() {
+        
+    }
+}

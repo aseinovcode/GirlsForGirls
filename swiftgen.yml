@@ -1,0 +1,12 @@
+strings:
+  inputs: GirlsForGirls/Base.lproj
+  outputs:
+    - templateName: structured-swift5
+      output: Generated/Strings.swift
+xcassets:
+  inputs:
+    - GirlsForGirls/Fonts.xcassets
+    - GirlsForGirls/Colors.xcassets
+  outputs:
+    - templateName: swift5
+      output: GirlsForGirls/Resources/Generated/Assets.swift

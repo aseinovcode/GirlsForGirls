@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import UIKit
+
+class MentorshipViewController: BaseViewController {
+    
+    override func setupViews() {
+        
+    }
+    
+}

@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import UIKit
+
+class ProfileViewController: BaseViewController {
+    
+    
+    override func setupViews() {
+        
+    }
+    
+}

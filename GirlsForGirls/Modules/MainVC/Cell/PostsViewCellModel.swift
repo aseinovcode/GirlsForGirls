@@ -7,15 +7,23 @@
 
 import Foundation
 
+enum PostType {
+    case regular
+    case event
+}
+
 class PostsViewCellModel {
+    
     
     var postImage: String
     var postTitle: String
     var postSubTItle: String
+    var postType: PostType
     
-    init(postImage: String,postTitle: String,postSubTItle: String){
+    init(postImage: String,postTitle: String,postSubTItle: String, postType: PostType){
         self.postImage = postImage
         self.postTitle = postTitle
         self.postSubTItle = postSubTItle
+        self.postType = postType
     }
 }
