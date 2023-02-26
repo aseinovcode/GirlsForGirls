@@ -70,8 +70,8 @@ class ResgisterViewController: BaseViewController {
         return view
     }()
     
-    private lazy var phoneField: TextField = {
-        let view = TextField()
+    private lazy var phoneField: PhoneField = {
+        let view = PhoneField()
         view.setup(text: "Номер телефона")
         view.setLeftPaddingPoints(10)
         return view
@@ -84,17 +84,19 @@ class ResgisterViewController: BaseViewController {
         return view
     }()
     
-    private lazy var passwordField: TextField = {
-        let view = TextField()
+    private lazy var passwordField: PasswordTextField = {
+        let view = PasswordTextField()
         view.setup(text: "Пароль")
         view.setLeftPaddingPoints(10)
+        view.isRightViewModeEnabled(isRightEnabled: true, rightImage: "secure")
         return view
     }()
     
-    private lazy var verifyPasswordField: TextField = {
-        let view = TextField()
+    private lazy var verifyPasswordField: PasswordTextField = {
+        let view = PasswordTextField()
         view.setup(text: "Подтвердить пароль")
         view.setLeftPaddingPoints(10)
+        view.isRightViewModeEnabled(isRightEnabled: true, rightImage: "secure")
         return view
     }()
     
@@ -147,9 +149,15 @@ class ResgisterViewController: BaseViewController {
     
     @objc func registerButtonTapped() {
         print("Register tapped")
-        let vc = ChooseCityViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        guard let name = nameField.text, let phone = phoneField.text, let password = passwordField.text, let vPassword = verifyPasswordField.text else { return }
+        if !name.isEmpty, !phone.isEmpty, !password.isEmpty, !vPassword.isEmpty {
+            let vc = ChooseCityViewController()
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        } else {
+            print("here will be alert")
+        }
+        UserDefaults.standard.set(phone, forKey: "phoneNumber")
     }
     
     @objc func checkTapped() {

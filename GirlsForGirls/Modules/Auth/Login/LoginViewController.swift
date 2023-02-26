@@ -10,6 +10,10 @@ import SnapKit
 
 class LoginViewController: BaseViewController {
     
+    lazy var viewModel = {
+        LoginViewModel()
+    }()
+    
     private lazy var logo: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "logo")
@@ -35,8 +39,8 @@ class LoginViewController: BaseViewController {
         return view
     }()
 
-    private lazy var loginField: TextField = {
-        let view = TextField()
+    private lazy var loginField: PhoneField = {
+        let view = PhoneField()
         view.setup(text: "Phone number")
         view.isViewModesEnabled(isLeftEnabled: true, leftImage: "phone")
         return view
@@ -60,7 +64,7 @@ class LoginViewController: BaseViewController {
     private lazy var forgotPasswordLabel: UILabel = {
         let view = UILabel()
         view.text = "Забыли пароль?"
-        view.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        view.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(forgotPaasswordTapped)))
         return view
@@ -69,7 +73,7 @@ class LoginViewController: BaseViewController {
     private lazy var registerLabel: UILabel = {
         let view = UILabel()
         view.text = "Зарегистрироваться"
-        view.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        view.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         view.textColor = UIColor(hexString: "#DB66E4")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(registerTapped)))
@@ -123,12 +127,36 @@ class LoginViewController: BaseViewController {
         }
     }
     
+    override func setupValues() {
+        print(viewModel.successText)
+        viewModel.isUserAuthorize = { (isAuthorized) in
+            
+            if isAuthorized{
+                DispatchQueue.main.async {
+                    let vc = TabBarController()
+                    self.viewModel.makeRoot(viewController: vc)
+                }
+            }
+            else{
+                print("proekt oldu")
+            }
+        }
+    }
+    
     @objc func loginButtonTapped() {
         print("login tapped")
+        guard let login = loginField.text, let password = passwordField.text else
+        {return}
+
+        if !login.isEmpty && !password.isEmpty{
+            viewModel.authorize(phone: login, password: password)
+        }
     }
     
     @objc func forgotPaasswordTapped() {
         print("Forgot Pass")
+        guard let phoneField = loginField.text else { return }
+        viewModel.sendPhoneData(phoneNumber: phoneField)
         let vc = ForgotPassword()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)

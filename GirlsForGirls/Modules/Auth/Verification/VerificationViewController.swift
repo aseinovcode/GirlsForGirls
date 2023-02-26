@@ -11,6 +11,10 @@ import SnapKit
 
 class VerificationViewController: BaseViewController {
     
+    lazy var viewModel = {
+        LoginViewModel()
+    }()
+    
     private lazy var verificationTitle: Label = {
         let view = Label()
         view.configureLabel(text:"Верификация", fontSize: 32, weight: .semibold)

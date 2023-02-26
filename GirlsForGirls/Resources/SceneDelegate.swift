@@ -12,12 +12,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     static let shared = SceneDelegate()
 
-
+//
+//    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+//        guard let windowScene = scene as? UIWindowScene else { return }
+//        let window = UIWindow(windowScene: windowScene)
+//        let initialViewController = LoginViewController()
+//        changeRootViewController(to: initialViewController, in: window)
+//        self.window = window
+//    }
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = scene as? UIWindowScene else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let initialViewController = LoginViewController()
-        changeRootViewController(to: initialViewController, in: window)
+        window.rootViewController = LoginViewController()
+        window.makeKeyAndVisible()
         self.window = window
     }
     
@@ -26,6 +34,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = viewController
         window.makeKeyAndVisible()
     }
+    
+    func makeRoot(viewController: UIViewController) {
+        window?.rootViewController?.removeFromParent()
+        self.window?.rootViewController = viewController
+    }
+    
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

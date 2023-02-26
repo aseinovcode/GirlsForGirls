@@ -1,15 +1,17 @@
 //
-//  TextField.swift
+//  LoginField.swift
 //  GirlsForGirls
 //
-//  Created by Zalkar Aseinov on 18.02.2023.
+//  Created by Zalkar Aseinov on 24.02.2023.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-class TextField: UITextField {
+class PhoneField: UITextField {
+    
+    var validation = FieldValidations()
     
     private lazy var leftImageView: UIImageView = {
         let view = UIImageView()
@@ -19,6 +21,7 @@ class TextField: UITextField {
     }()
     
     init(){
+        self.validation = FieldValidations()
         super.init(frame: .zero)
         setupViews()
         constraints()
@@ -67,7 +70,7 @@ class TextField: UITextField {
     }
     
     private func setupViews(){
-    
+
     }
     
     func constraints() {
@@ -75,10 +78,11 @@ class TextField: UITextField {
             make.height.equalTo(50)
             make.width.equalTo(343)
         }
+
     }
 }
 
-extension TextField: UITextFieldDelegate {
+extension PhoneField: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text else { return}
@@ -88,5 +92,12 @@ extension TextField: UITextFieldDelegate {
         }else {
             leftImageView.isHidden = false
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return false }
+        let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        textField.text = validation.format(with: "(XXX) XXX-XXX", phone: newString)
+        return false
     }
 }

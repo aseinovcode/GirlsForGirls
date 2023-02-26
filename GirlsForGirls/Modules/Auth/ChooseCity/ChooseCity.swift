@@ -10,6 +10,12 @@ import UIKit
 
 class ChooseCityViewController: BaseViewController {
     
+    lazy var viewModel = {
+        ChooseCityViewModel()
+    }()
+    
+    let phone = UserDefaults.standard.string(forKey: "phoneNumber")
+    
     var cityArray: [String] = ["Бишкек"]
     
     private lazy var cityTitle: UILabel = {
@@ -70,9 +76,12 @@ class ChooseCityViewController: BaseViewController {
     }
     
     @objc func registerButtonTapped() {
+        print("choose button tapped")
+        print(phone)
         let vc = VerificationViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
+        
     }
 }
 

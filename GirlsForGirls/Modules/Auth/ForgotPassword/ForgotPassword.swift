@@ -11,6 +11,12 @@ import SnapKit
 
 class ForgotPassword: BaseViewController {
     
+    var code: String = ""
+    
+    let viewModel: ForgotPasswordViewModel = {
+        ForgotPasswordViewModel()
+    }()
+    
     private lazy var forgotPasswordTitle: Label = {
         let view = Label()
         view.configureLabel(text: "Восстановления \nпароля", fontSize: 32, weight: .semibold)
@@ -97,6 +103,7 @@ class ForgotPassword: BaseViewController {
         view.addSubview(notReceivedText)
         view.addSubview(sendAgainText)
         enableBackButton(enable: true)
+        
     }
     
     override func constraints() {
@@ -134,9 +141,17 @@ class ForgotPassword: BaseViewController {
     }
     
     @objc func recover() {
-        let vc = SetNewPassword()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        print("recover tapped")
+        let smsCode = "\(code)11"
+        AuthManager.shared.verifyCode(smsCode: smsCode) { [weak self] success in
+            if success {
+                let vc = SetNewPassword()
+                vc.modalPresentationStyle = .fullScreen
+                self?.present(vc, animated: true)
+            }else {
+                print("error")
+            }
+        }
     }
 }
 
@@ -165,9 +180,10 @@ extension ForgotPassword: UITextFieldDelegate {
                  break
              }
             textField.text = updatedText
-
+            code += updatedText
             return false
         }
+
         return true
     }
 }

@@ -91,24 +91,13 @@ class PasswordTextField: UITextField{
     }
     
     private func setupViews(){
-        //self.addSubview(rightImageView)
-        //self.addSubview(leftImageView)
+
     }
     
     func constraints() {
         self.snp.makeConstraints { make in
             make.height.equalTo(50)
-           // make.width.equalTo(343)
         }
-//        rightImageView.snp.makeConstraints { make in
-//            make.centerY.equalToSuperview()
-//            make.trailing.equalToSuperview().inset(32)
-//        }
-        
-//        leftImageView.snp.makeConstraints { make in
-//            make.centerY.equalToSuperview()
-//            make.leading.equalToSuperview().offset(32)
-//        }
     }
     
     @objc func secureTaped() {
@@ -133,6 +122,23 @@ extension PasswordTextField: UITextFieldDelegate{
         }
     }
     
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//            
+//            let newPassword = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+//            
+//            if newPassword.count < 8 {
+//                return false
+//            } else if !newPassword.contains(where: { $0.isUppercase }) {
+//                return false
+//            } else if !newPassword.contains(where: { $0.isLowercase }) {
+//                return false
+//            } else if !newPassword.contains(where: { $0.isNumber }) {
+//                return false
+//            } else if !newPassword.rangeOfCharacter(from: CharacterSet.alphanumerics.inverted)!.isEmpty {
+//                return false
+//            }
+//            return true
+//        }
 }
 
 

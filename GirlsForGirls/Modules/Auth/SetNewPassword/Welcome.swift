@@ -50,8 +50,9 @@ class Welcome: BaseViewController {
     @objc func continueTapped() {
         print("Continue Tapped")
         let vc = TabBarController()
-        let window = SceneDelegate.shared.window
-        SceneDelegate.shared.changeRootViewController(to: vc, in: window)
+        
+        //let window = SceneDelegate.shared.window
+        //SceneDelegate.shared.changeRootViewController(to: vc, in: window)
     }
     
 }
