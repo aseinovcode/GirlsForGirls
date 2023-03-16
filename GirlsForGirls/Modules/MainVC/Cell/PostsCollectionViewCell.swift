@@ -86,26 +86,23 @@ class PostsCollectionViewCell: UICollectionViewCell {
     }
     
     func setupViews(){
-        addSubview(postImage)
         addSubview(titleStack)
         contentView.addSubview(moreButton)
         contentView.addSubview(applyButton)
+        addSubview(postImage)
     }
     
     func constraints(){
         postImage.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.height.equalTo(self.frame.height / 2 - 2)
-            make.top.equalTo(self.snp.top)
+            make.edges.equalToSuperview()
         }
         
         titleStack.snp.makeConstraints { make in
-            make.top.equalTo(postImage.snp.bottom).offset(10)
+            make.bottom.equalTo(moreButton.snp.top).offset(-18)
             make.width.equalTo(self.frame.width - 32)
             make.centerX.equalToSuperview()
             make.height.equalTo(65)
         }
-        
     }
     
     func fill(model: PostsViewCellModel){
@@ -116,7 +113,7 @@ class PostsCollectionViewCell: UICollectionViewCell {
         switch model.postType {
         case .regular:
             moreButton.snp.makeConstraints { make in
-                make.top.equalTo(titleStack.snp.bottom).offset(10)
+                make.bottom.equalToSuperview().offset(-24)
                 make.width.equalTo(self.frame.width - 32)
                 make.height.equalTo(50)
                 make.centerX.equalToSuperview()
@@ -127,14 +124,14 @@ class PostsCollectionViewCell: UICollectionViewCell {
             moreButton.backgroundColor = UIColor(hexString: "#DB66E4")
         case .event:
             moreButton.snp.makeConstraints { make in
-                make.top.equalTo(titleStack.snp.bottom).offset(10)
+                make.bottom.equalToSuperview().offset(-24)
                 make.width.equalTo(self.frame.width / 2 - 16 - 5)
                 make.height.equalTo(50)
                 make.leading.equalTo(self.snp.leading).offset(12)
             }
             
             applyButton.snp.makeConstraints { make in
-                make.top.equalTo(titleStack.snp.bottom).offset(10)
+                make.bottom.equalToSuperview().offset(-24)
                 make.width.equalTo(self.frame.width / 2 - 16 - 5)
                 make.height.equalTo(50)
                 make.trailing.equalTo(self.snp.trailing).offset(-12)
