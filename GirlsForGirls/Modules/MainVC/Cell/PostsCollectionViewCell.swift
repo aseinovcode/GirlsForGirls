@@ -24,8 +24,6 @@ class PostsCollectionViewCell: UICollectionViewCell {
     
     private lazy var postImage: UIImageView = {
         let view = UIImageView()
-        view.layer.cornerRadius = 20
-        view.clipsToBounds = true
         return view
     }()
     
@@ -48,7 +46,7 @@ class PostsCollectionViewCell: UICollectionViewCell {
         let view = UIButton()
         view.setTitleColor(.white, for: .normal)
         view.titleLabel?.font = UIFont(name: "Inter-Medium", size: 18)
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         view.layer.cornerRadius = 10
         view.layer.borderColor = UIColor(hexString: "#DB66E4").cgColor
         view.layer.borderWidth = 1
@@ -63,8 +61,6 @@ class PostsCollectionViewCell: UICollectionViewCell {
         view.titleLabel?.font = UIFont(name: "Inter-Medium", size: 18)
         view.backgroundColor = UIColor(hexString: "#DB66E4")
         view.layer.cornerRadius = 10
-        view.layer.borderColor = UIColor(hexString: "#DB66E4").cgColor
-        view.layer.borderWidth = 1
         view.setTitle("Подать заявку", for: .normal)
         return view
     }()
@@ -77,6 +73,7 @@ class PostsCollectionViewCell: UICollectionViewCell {
         layer.shadowRadius = 4
         layer.shadowOffset = CGSize(width: 0, height: 4)
         layer.cornerRadius = 20
+        layer.masksToBounds = true
         setupViews()
         constraints()
     }
@@ -86,10 +83,10 @@ class PostsCollectionViewCell: UICollectionViewCell {
     }
     
     func setupViews(){
+        addSubview(postImage)
         addSubview(titleStack)
         contentView.addSubview(moreButton)
         contentView.addSubview(applyButton)
-        addSubview(postImage)
     }
     
     func constraints(){

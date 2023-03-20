@@ -130,7 +130,7 @@ class LoginViewController: BaseViewController {
     override func setupValues() {
         print(viewModel.successText)
         viewModel.isUserAuthorize = { (isAuthorized) in
-            
+
             if isAuthorized{
                 DispatchQueue.main.async {
                     let vc = TabBarController()
@@ -141,6 +141,7 @@ class LoginViewController: BaseViewController {
                 print("proekt oldu")
             }
         }
+        
     }
     
     @objc func loginButtonTapped() {
@@ -149,14 +150,14 @@ class LoginViewController: BaseViewController {
         {return}
 
         if !login.isEmpty && !password.isEmpty{
-            viewModel.authorize(phone: login, password: password)
+            viewModel.sendPhoneNumber(phone: login, password: password)
         }
     }
     
     @objc func forgotPaasswordTapped() {
         print("Forgot Pass")
         guard let phoneField = loginField.text else { return }
-        viewModel.sendPhoneData(phoneNumber: phoneField)
+//        viewModel.sendPhoneData(phoneNumber: phoneField)
         let vc = ForgotPassword()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)

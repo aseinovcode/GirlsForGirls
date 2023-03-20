@@ -8,29 +8,50 @@
 import Foundation
 import FirebaseAuth
 
-class LoginViewModel {
+protocol LoginServiceProtocol {
+    func sendPhoneNumber(phone: String, password: String)
+    var isTextFieldValid: Bool { get set }
+    var isUserAuthorize: ((Bool) -> ())? { get set }
+}
+
+class LoginViewModel: LoginServiceProtocol {
     
-    private let phone: String = "(550) 908-907"
-    private let userPassword: String = "password"
+    private let networkService = NetworkService()
+    private let userDefaults = UserDefaultsService()
+    
+    var isTextFieldValid: Bool = true
+    
+    var successText: String = ""
      
     var isUserAuthorize: ((Bool) -> Void)?
     
-    var successText: String = ""
-    
-    func sendPhoneData(phoneNumber: String){
-        let phone = "+996 \(phoneNumber)"
+    func sendPhoneNumber(phone: String, password: String){
         AuthManager.shared.startAuth(phoneNumber: phone) { [weak self] success in
             guard success else { return }
             self?.successText = "Success"
         }
-    }
-    
-    func authorize(phone: String, password: String){
-        if phone.lowercased() == phone.lowercased() && userPassword == password{
-            isUserAuthorize!(true)
-        }
-        else{
-            isUserAuthorize!(false)
+        let newPhoneNumber = "996" + phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        let data = LoginModel(phone_number: newPhoneNumber, password: password).toData()
+        self.networkService.sendRequest(urlRequest: LoginRouter.login(body: data).createURLRequest(), successModel: TokenServiceModel.self) {
+            [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let model):
+                self.userDefaults.save(value: model.access, key: .token)
+                self.userDefaults.save(value: model.refresh, key: .refresh)
+                self.isUserAuthorize?(true)
+                self.isTextFieldValid = true
+                print("qeqwe\(model)")
+            case .badRequest(let bad):
+                self.isTextFieldValid = false
+                print(bad)
+            case .unauthorized(let needToken):
+                print(needToken)
+                self.isTextFieldValid = false
+            case .failure(let error):
+                print(error)
+                self.isTextFieldValid = false
+            }
         }
     }
     
@@ -39,5 +60,10 @@ class LoginViewModel {
             delegate.makeRoot(viewController: viewController)
         }
     }
-    
+}
+
+fileprivate extension Encodable {
+    func toData() -> Data {
+        (try? JSONEncoder().encode(self)) ?? Data()
+    }
 }

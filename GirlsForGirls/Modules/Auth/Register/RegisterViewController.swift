@@ -11,6 +11,10 @@ import SnapKit
 
 class ResgisterViewController: BaseViewController {
     
+    lazy var viewModel = {
+        RegisterViewModel()
+    }()
+    
     private lazy var registerTitle: UILabel = {
         let view = UILabel()
         view.text = "Регистрация"
@@ -150,6 +154,7 @@ class ResgisterViewController: BaseViewController {
     @objc func registerButtonTapped() {
         print("Register tapped")
         guard let name = nameField.text, let phone = phoneField.text, let password = passwordField.text, let vPassword = verifyPasswordField.text else { return }
+        
         if !name.isEmpty, !phone.isEmpty, !password.isEmpty, !vPassword.isEmpty {
             let vc = ChooseCityViewController()
             vc.modalPresentationStyle = .fullScreen

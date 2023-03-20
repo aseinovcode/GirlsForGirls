@@ -11,6 +11,10 @@ import SnapKit
 
 class MainViewController: BaseViewController {
     
+    lazy var viewModel = {
+        MainViewModel()
+    }()
+    
     private lazy var headerView: HeaderView = {
         let view = HeaderView()
         view.fillHeader(title: "Qwe", subTitle: "SubQwer", profileImage: UIImage(named:"shome") ?? UIImage())
@@ -52,27 +56,19 @@ class MainViewController: BaseViewController {
     }
     
     override func setupValues() {
-        addPosts()
+        viewModel.addPosts()
     }
     
-    var posts = [PostsViewCellModel]()
-    
-    func addPosts(){
-        posts.append(PostsViewCellModel(postImage: "https://www.womensissuescentre.com/wp-content/uploads/2020/09/Women_workplace.jpg", postTitle: "Girls for Girls", postSubTItle: "Girls for Girls support us", postType: .regular))
-        posts.append(PostsViewCellModel(postImage: "https://www.womensissuescentre.com/wp-content/uploads/2020/09/Women_workplace.jpg", postTitle: "Girls for Girls", postSubTItle: "Girls for Girls support us", postType: .event))
-        posts.append(PostsViewCellModel(postImage: "https://www.womensissuescentre.com/wp-content/uploads/2020/09/Women_workplace.jpg", postTitle: "Girls for Girls", postSubTItle: "Girls for Girls support us", postType: .regular))
-        posts.append(PostsViewCellModel(postImage: "https://www.womensissuescentre.com/wp-content/uploads/2020/09/Women_workplace.jpg", postTitle: "Girls for Girls", postSubTItle: "Girls for Girls support us", postType: .event))
-    }
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+        return viewModel.posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let load = posts[indexPath.row]
+        let load = viewModel.posts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withClass: PostsCollectionViewCell.self, for: indexPath)
         cell.fill(model: load)
         return cell
