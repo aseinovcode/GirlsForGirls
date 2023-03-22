@@ -8,6 +8,9 @@
 import Foundation
 
 class UserDefaultsService{
+    
+    static let shared = UserDefaultsService()
+    
     private let storage: UserDefaults
     
     required init(storage: UserDefaults = UserDefaults.standard) {

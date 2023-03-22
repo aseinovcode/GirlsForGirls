@@ -62,6 +62,8 @@
 		DFC3F5F529C7843300A5AA9A /* RegisterServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3F5F429C7843300A5AA9A /* RegisterServiceModel.swift */; };
 		DFC3F5F729C784E100A5AA9A /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3F5F629C784E100A5AA9A /* RegisterRouter.swift */; };
 		DFC3F5F929C7867400A5AA9A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3F5F829C7867400A5AA9A /* RegisterViewModel.swift */; };
+		DFC3F5FB29CB3D6500A5AA9A /* TryAgainResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3F5FA29CB3D6400A5AA9A /* TryAgainResult.swift */; };
+		DFC3F5FD29CB6D8900A5AA9A /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC3F5FC29CB6D8900A5AA9A /* ChangePassword.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +125,8 @@
 		DFC3F5F429C7843300A5AA9A /* RegisterServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterServiceModel.swift; sourceTree = "<group>"; };
 		DFC3F5F629C784E100A5AA9A /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
 		DFC3F5F829C7867400A5AA9A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		DFC3F5FA29CB3D6400A5AA9A /* TryAgainResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryAgainResult.swift; sourceTree = "<group>"; };
+		DFC3F5FC29CB6D8900A5AA9A /* ChangePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
 		E5FE9BD021A6269E620A205F /* Pods_GirlsForGirls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GirlsForGirls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6EA628A0F4B3EC3B47733E /* Pods-GirlsForGirls.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GirlsForGirls.debug.xcconfig"; path = "Target Support Files/Pods-GirlsForGirls/Pods-GirlsForGirls.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -401,6 +405,7 @@
 				DFC3F5E929C4A15B00A5AA9A /* Routers */,
 				DFC3F5DC29C484AC00A5AA9A /* NetworkStuff */,
 				DFC3F5DA29C4834300A5AA9A /* NetworkService.swift */,
+				DFC3F5FA29CB3D6400A5AA9A /* TryAgainResult.swift */,
 				DFC3F5E529C4A09300A5AA9A /* FailureModel.swift */,
 				DFC3F5EC29C4AA1B00A5AA9A /* UserDefaultsService.swift */,
 			);
@@ -425,6 +430,7 @@
 				DFC3F5EA29C4A8E000A5AA9A /* BaseRouter.swift */,
 				DFC3F5EE29C7754400A5AA9A /* LoginRouter.swift */,
 				DFC3F5F629C784E100A5AA9A /* RegisterRouter.swift */,
+				DFC3F5FC29CB6D8900A5AA9A /* ChangePassword.swift */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -552,9 +558,11 @@
 				DFB7F62129A9529E00C76920 /* VerificationViewModel.swift in Sources */,
 				DFB7F62329A95A0E00C76920 /* ForgotPasswordViewModel.swift in Sources */,
 				DFC3F5EB29C4A8E000A5AA9A /* BaseRouter.swift in Sources */,
+				DFC3F5FD29CB6D8900A5AA9A /* ChangePassword.swift in Sources */,
 				DFB7F61929A92F4E00C76920 /* PhoneField.swift in Sources */,
 				DFC3F5DE29C4854600A5AA9A /* HttpHeader.swift in Sources */,
 				DF54C23429A37AB300F97608 /* SetNewPassword.swift in Sources */,
+				DFC3F5FB29CB3D6500A5AA9A /* TryAgainResult.swift in Sources */,
 				DF54C1FC29A29D0200F97608 /* Textfield.swift in Sources */,
 				DFC3F5D629C34A1700A5AA9A /* UIView.swift in Sources */,
 				DFC3F5E629C4A09300A5AA9A /* FailureModel.swift in Sources */,

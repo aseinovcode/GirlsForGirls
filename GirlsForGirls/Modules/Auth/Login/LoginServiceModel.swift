@@ -35,3 +35,19 @@ struct TokenServiceModel: Codable {
         access = try values.decodeIfPresent(String.self, forKey: .access)
     }
 }
+
+struct AccesTokenModel: Codable {
+    
+    let access : String?
+
+    enum CodingKeys: String, CodingKey {
+
+        case access = "access"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        access = try values.decodeIfPresent(String.self, forKey: .access)
+    }
+
+}

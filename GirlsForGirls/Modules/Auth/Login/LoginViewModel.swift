@@ -41,7 +41,7 @@ class LoginViewModel: LoginServiceProtocol {
                 self.userDefaults.save(value: model.refresh, key: .refresh)
                 self.isUserAuthorize?(true)
                 self.isTextFieldValid = true
-                print("qeqwe\(model)")
+                print(model)
             case .badRequest(let bad):
                 self.isTextFieldValid = false
                 print(bad)

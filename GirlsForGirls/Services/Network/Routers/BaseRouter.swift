@@ -49,4 +49,39 @@ extension BaseRouter{
         }
         return urlRequest
     }
+    
+    func createURLRequest(contentType: String = "application/json",accept: String = "application/json", isContentTypeIncluded: Bool, isAccessTokenRequired: Bool) -> URLRequest {
+            var urlComponents = URLComponents()
+            urlComponents.scheme = scheme
+            urlComponents.host = host
+            urlComponents.path = path
+            urlComponents.queryItems = queryParameter
+            
+    //        urlComponents.percentEncodedQuery = urlComponents.percentEncodedQuery?
+    //            .replacingOccurrences(of: "@", with: "%40")
+            
+            guard let url = urlComponents.url else {
+                fatalError(URLError(.unsupportedURL).localizedDescription)
+            }
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = method
+            urlRequest.httpBody = httpBody
+            httpHeader?.forEach { (header) in
+                urlRequest.setValue(header.value, forHTTPHeaderField: header.field)
+            }
+            if isContentTypeIncluded == true {
+                urlRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+            }
+            urlRequest.setValue(accept, forHTTPHeaderField: "Accept")
+           
+            if isAccessTokenRequired == true {
+                if let token = UserDefaultsService.shared.getBy(key: .token) as? String {
+                    let newToken = "Bearer \(token)"
+                    urlRequest.setValue(newToken, forHTTPHeaderField: "Authorization")
+                }
+               
+            }
+            
+            return urlRequest
+        }
 }
